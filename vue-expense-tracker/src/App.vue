@@ -2,7 +2,7 @@
   <AppHeader />
   <div class="container">
     <AppBalance :total="total" />
-    <IncomeExpenses />
+    <IncomeExpenses :income="income" :expenses="expenses"/>
     <TransactionList :transactions="transactions" />
     <AddTransaction />
   </div>
