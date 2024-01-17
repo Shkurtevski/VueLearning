@@ -1,8 +1,8 @@
 <template>
   <AppHeader />
   <div class="container">
-    <AppBalance :total="total" />
-    <IncomeExpenses :income="income" :expenses="expenses" />
+    <AppBalance :total="+total" />
+    <IncomeExpenses :income="+income" :expenses="+expenses" />
     <TransactionList :transactions="transactions" />
     <AddTransaction @transaction-submitted="handleTransactionSubmitted" />
   </div>
@@ -15,9 +15,10 @@ import AppBalance from './components/AppBalance.vue'
 import IncomeExpenses from './components/IncomeExpenses.vue'
 import TransactionList from './components/TransactionList.vue'
 import AddTransaction from './components/AddTransaction.vue'
+import { useToast } from 'vue-toastification'
 import type { TransactionData } from './interfaces'
 
-import { ref, computed } from 'vue'
+import { ref, computed} from 'vue'
 
 const transactions = ref([
   { id: 1, text: 'Flower', amount: -19.99 },
@@ -25,6 +26,8 @@ const transactions = ref([
   { id: 3, text: 'Book', amount: -10 },
   { id: 4, text: 'Camera', amount: 150 }
 ])
+
+const toast = useToast()
 
 // GET-TOTAL-BALANCE
 const total = computed(() => {
@@ -55,7 +58,17 @@ const expenses = computed(() => {
 
 // ADD-TRANSACTION
 const handleTransactionSubmitted = (transactionData: TransactionData) => {
-  console.log(transactionData)
+  transactions.value.push({
+    id: generateUniqueId(),
+    text: transactionData.text,
+    amount: transactionData.amount
+  })
+  toast.success('Transaction added')
+}
+
+// GENERATE-UNIQUE-ID
+const generateUniqueId = () => {
+  return Math.floor(Math.random() * 1000000)
 }
 
 // OLDER-WAY-TO-EXPORT-FILES
