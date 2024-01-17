@@ -18,14 +18,23 @@ import AddTransaction from './components/AddTransaction.vue'
 import { useToast } from 'vue-toastification'
 import type { TransactionData } from './interfaces'
 
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
-const transactions = ref([
-  { id: 1, text: 'Flower', amount: -19.99 },
-  { id: 2, text: 'Salary', amount: 299.97 },
-  { id: 3, text: 'Book', amount: -10 },
-  { id: 4, text: 'Camera', amount: 150 }
-])
+const transactions = ref<Array<{ id: number; text: string; amount: number }>>([])
+
+onMounted(() => {
+  const localStorageKey = 'transactions'
+
+  if (localStorageKey !== null) {
+    const savedTransactions = JSON.parse(localStorage.getItem(localStorageKey) || 'null')
+
+    if (savedTransactions) {
+      transactions.value = savedTransactions
+    }
+  }
+})
+
+console.log(transactions)
 
 const toast = useToast()
 
@@ -63,6 +72,8 @@ const handleTransactionSubmitted = (transactionData: TransactionData) => {
     text: transactionData.text,
     amount: transactionData.amount
   })
+
+  saveTransactionsToLocalStorage()
   toast.success('Transaction added')
 }
 
@@ -70,6 +81,7 @@ const handleTransactionSubmitted = (transactionData: TransactionData) => {
 const handleTransactionDeleted = (id: Number) => {
   transactions.value = transactions.value.filter((transaction) => transaction.id !== id)
 
+  saveTransactionsToLocalStorage()
   toast.success('Transaction deleted')
 }
 
@@ -77,6 +89,13 @@ const handleTransactionDeleted = (id: Number) => {
 const generateUniqueId = () => {
   return Math.floor(Math.random() * 1000000)
 }
+
+// SAVE-TO-LOCAl-STORAGE
+const saveTransactionsToLocalStorage = () => {
+  localStorage.setItem('transactions', JSON.stringify(transactions.value))
+}
+
+console.log(localStorage)
 
 // OLDER-WAY-TO-EXPORT-FILES
 // export default {
