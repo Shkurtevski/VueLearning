@@ -6,7 +6,7 @@
       <input type="text" id="text" v-model="text" placeholder="Enter text..." />
     </div>
     <div class="form-control">
-      <label for="amount">Amount <br />(negative - expense, positive - income)</label>
+      <label for="amount">Amount</label>
       <input type="number" id="amount" v-model="amount" placeholder="Enter amount..." />
       <button class="btn">Add transaction</button>
     </div>
