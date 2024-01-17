@@ -14,14 +14,9 @@
 
 <script lang="ts" setup>
 import { defineProps } from 'vue'
+import type { Transaction } from '../interfaces'
 
-interface Transaction {
-  id: number
-  text: string
-  amount: number
-}
-
-const props = defineProps({
+const { transactions } = defineProps({
   transactions: {
     type: Array as () => Transaction[],
     required: true
