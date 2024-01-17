@@ -3,25 +3,36 @@
   <div class="container">
     <AppBalance />
     <IncomeExpenses />
-    <TransactionList />
+    <TransactionList :transactions="transactions"/>
     <AddTransaction />
   </div>
 </template>
 
-<script lang="ts">
+<!-- WITH-KEYWORD-SETUP-DOESNT-NEED-TO-BE-EXPORTED -->
+<script lang="ts" setup>
 import AppHeader from './components/AppHeader.vue'
 import AppBalance from './components/AppBalance.vue'
 import IncomeExpenses from './components/IncomeExpenses.vue'
 import TransactionList from './components/TransactionList.vue'
 import AddTransaction from './components/AddTransaction.vue'
 
-export default {
-  components: {
-    AppHeader,
-    AppBalance,
-    IncomeExpenses,
-    TransactionList,
-    AddTransaction
-  }
-}
+import { ref } from 'vue'
+
+const transactions = ref([
+  { id: 1, text: 'Flower', amount: -19.99 },
+  { id: 2, text: 'Salary', amount: 299.97 },
+  { id: 3, text: 'Book', amount: -10 },
+  { id: 4, text: 'Camera', amount: 150 }
+])
+
+// OLDER-WAY-TO-EXPORT-FILES
+// export default {
+//   components: {
+//     AppHeader,
+//     AppBalance,
+//     IncomeExpenses,
+//     TransactionList,
+//     AddTransaction
+//   }
+// }
 </script>
