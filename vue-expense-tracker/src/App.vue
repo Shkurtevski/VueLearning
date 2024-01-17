@@ -2,9 +2,9 @@
   <AppHeader />
   <div class="container">
     <AppBalance :total="total" />
-    <IncomeExpenses :income="income" :expenses="expenses"/>
+    <IncomeExpenses :income="income" :expenses="expenses" />
     <TransactionList :transactions="transactions" />
-    <AddTransaction />
+    <AddTransaction @transaction-submitted="handleTransactionSubmitted" />
   </div>
 </template>
 
@@ -15,6 +15,7 @@ import AppBalance from './components/AppBalance.vue'
 import IncomeExpenses from './components/IncomeExpenses.vue'
 import TransactionList from './components/TransactionList.vue'
 import AddTransaction from './components/AddTransaction.vue'
+import type { TransactionData } from './interfaces'
 
 import { ref, computed } from 'vue'
 
@@ -51,6 +52,11 @@ const expenses = computed(() => {
     }, 0)
     .toFixed(2)
 })
+
+// ADD-TRANSACTION
+const handleTransactionSubmitted = (transactionData: TransactionData) => {
+  console.log(transactionData)
+}
 
 // OLDER-WAY-TO-EXPORT-FILES
 // export default {

@@ -15,11 +15,30 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useToast } from 'vue-toastification'
+import type { TransactionData } from '../interfaces'
 
 const text = ref('')
-const amount = ref(0)
+const amount = ref<number | null>(null)
+
+const emit = defineEmits(['transactionSubmitted'])
+
+const toast = useToast()
 
 const onSubmit = () => {
-  console.log('Submitted:', { text: text.value, amount: amount.value })
+  if (!text.value || !amount.value) {
+    toast.error('Both fields must be filled')
+    return
+  }
+
+  const transactionData: TransactionData = {
+    text: text.value,
+    amount: amount.value
+  }
+
+  emit('transactionSubmitted', transactionData)
+
+  text.value = ''
+  amount.value = null
 }
 </script>

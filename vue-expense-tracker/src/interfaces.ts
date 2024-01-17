@@ -3,3 +3,8 @@ export interface Transaction {
   text: string
   amount: number
 }
+
+export interface TransactionData {
+  text: string
+  amount: number
+}
