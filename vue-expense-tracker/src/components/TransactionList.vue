@@ -7,7 +7,7 @@
       :class="transaction.amount < 0 ? 'minus' : 'plus'"
     >
       {{ transaction.text }} <span>${{ transaction.amount }}</span>
-      <button class="delete-btn">x</button>
+      <button @click="deleteTransaction(transaction.id)" class="delete-btn">x</button>
     </li>
   </ul>
 </template>
@@ -16,12 +16,18 @@
 import { defineProps } from 'vue'
 import type { Transaction } from '../interfaces'
 
+const emit = defineEmits(['transactionDeleted'])
+
 const { transactions } = defineProps({
   transactions: {
     type: Array as () => Transaction[],
     required: true
   }
 })
+
+const deleteTransaction = (id: Number) => {
+  emit('transactionDeleted', id)
+}
 </script>
 
 <!----- COMPOSITION-API ----->
