@@ -25,10 +25,31 @@ const transactions = ref([
   { id: 4, text: 'Camera', amount: 150 }
 ])
 
+// GET-TOTAL-BALANCE
 const total = computed(() => {
   return transactions.value.reduce((acc, transaction) => {
     return acc + transaction.amount
   }, 0)
+})
+
+// GET-INCOME
+const income = computed(() => {
+  return transactions.value
+    .filter((transaction) => transaction.amount > 0)
+    .reduce((acc, transaction) => {
+      return acc + transaction.amount
+    }, 0)
+    .toFixed(2)
+})
+
+// GET-EXPENSES
+const expenses = computed(() => {
+  return transactions.value
+    .filter((transaction) => transaction.amount < 0)
+    .reduce((acc, transaction) => {
+      return acc + transaction.amount
+    }, 0)
+    .toFixed(2)
 })
 
 // OLDER-WAY-TO-EXPORT-FILES
