@@ -9,6 +9,8 @@
       <label for="amount">Amount</label>
       <input type="number" id="amount" v-model="amount" placeholder="Enter amount..." />
       <button class="btn">Add transaction</button>
+      <router-link to="/router-test">To roter-test</router-link>
+      
     </div>
   </form>
 </template>

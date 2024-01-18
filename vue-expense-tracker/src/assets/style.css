@@ -102,9 +102,19 @@ input[type='number'] {
   transition: 0.3s ease;
 }
 
+.btn-dark {
+  background-color: #333;
+}
+
+
+
 .btn:hover {
   background-color: #333;
   color: #fff;
+}
+
+.btn-dark:hover {
+  background-color: #c0392b;
 }
 
 .btn:focus,
